@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../app/css/todoItem.css';
 
 class TodoItem extends Component {
 
@@ -13,12 +14,12 @@ class TodoItem extends Component {
 
   render () {
     return (
-      <li>
-        <div className="todo-item">
+      <div>
+        <li className="todo-item">
           <span className="item-name">{this.props.item}</span>
           <span className="item-delete" onClick={this.handleDelete}> x </span>
-        </div>
-      </li>
+        </li>
+      </div>
     );
   }
 }
