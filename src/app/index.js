@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import TodoItem from '../components/TodoItem';
+import AddItem from '../components/addItem';
+import About from '../components/About';
 import '../app/css/index.css';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+class App extends Component {
+
+  render () {
+    return (
+      <Router>
+        <div>
+          <Route exact path={'/'} component={Todo}></Route>
+          <Route path={'/about'} component={About}></Route>
+        </div>
+      </Router>
+    );
+  }
+}
 
 class Todo extends Component {
 
@@ -13,6 +29,7 @@ class Todo extends Component {
     };
 
     this.onDelete = this.onDelete.bind(this);
+    this.onAdd = this.onAdd.bind(this);
 
   }
 
@@ -26,6 +43,13 @@ class Todo extends Component {
     });
   }
 
+  onAdd (item) {
+    var updatedTodos = this.state.todos;
+    updatedTodos.push(item);
+    this.setState({
+      todos: updatedTodos
+    });
+  }
 
   render () {
     
@@ -38,13 +62,15 @@ class Todo extends Component {
 
     return (
       <div className="todo-list">
+        <Link to={'/about'}>About</Link>
         <p>The busiest people have the most leisure time...</p>
         <ul>
           {todo}
         </ul>
+        <AddItem onAdd={this.onAdd} />
       </div>
     );
   }
 }
 
-ReactDOM.render(<Todo />, document.getElementById('todo-wrapper'));
+ReactDOM.render(<App />, document.getElementById('todo-wrapper'));
